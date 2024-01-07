@@ -1,0 +1,269 @@
+:root {
+    --main-color: rgb(230, 230, 230);
+    // --key-shadow: 1px 1px 1px 0px #111, inset -2px -2px 6px 0px var(--shadow-color);
+    --vertical-gap: 10px;
+}
+
+@function percentage($value) {
+    @return $value +unquote('%');
+}
+
+$shadow-color: #333;
+$return-icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" viewBox="0 -1000 2500 2500"> <path d="M359-240 120-479l239-239 43 43-167 167h545v-172h60v231H236l166 166-43 43Z" fill="rgb(230, 230, 230)"></path></svg>';
+
+.keyboard.external-keyboard {
+    display: grid;
+    background-color: #222;
+    padding: 2%;
+    border-radius: 4px;
+    grid-template-columns: 64.8% 12.4% 16.8%;
+    grid-gap: 3%;
+    aspect-ratio: 45/9;
+}
+
+.keyboard.external-keyboard {
+    $shadow-color: #333;
+    $main-color: rgb(230, 230, 230);
+
+    // $section1-width:
+
+    // Sections
+    $section1-width-gap: 0.9%;
+    $section1-width-regular: 5.8%;
+    $section1-width-ordinal: 5.6%;
+    $section1-width-backspace: 13.1%;
+    $section1-width-tab: 10.7%;
+    $section1-width-upper-return: 8%;
+    $section1-width-lower-return: 5.7%;
+    $section1-width-bloq-mayus: 13%;
+    $section1-width-left-control: 8.5%;
+    $section1-width-right-shift: 16.9%;
+    $section1-width-spacebar: 39.3%;
+    $section1-width-right-control: 9.5%;
+
+    $section2-width-total: 3*$section1-width-regular +2*$section1-width-gap; // 19.2%
+    $section2-width-gap: percentage(calc(($section1-width-gap / $section2-width-total) * 100));
+    $section2-width-regular: percentage(calc(($section1-width-regular / $section2-width-total) * 100));
+
+    $section3-width-total: 4*$section1-width-regular +3*$section1-width-gap;
+    $section3-width-gap: calc(($section1-width-gap / $section3-width-total) * 100);
+    $section3-width-regular: calc(($section1-width-regular / $section3-width-total) * 100);
+    $section3-width-numpad-zero: calc((2*($section3-width-regular/100) + ($section3-width-gap/100)) * 100);
+
+
+    // Function row, section1
+    $section-gap: 0.3%;
+    $column-width: 6.6%;
+    $section-num: 3;
+    $columns-per-section: 4;
+
+    $grid-template-columns: 6.4%;
+
+    @for $i from 1 through $section-num {
+        $grid-template-columns: $grid-template-columns +" " +$section-gap +" " +"repeat(#{$columns-per-section}, #{$column-width})";
+    }
+
+    .grid-container {
+        grid-template-columns: unquote($grid-template-columns);
+    }
+
+    .keyboard-section {
+        display: grid;
+        gap: 2%;
+        border-radius: 10px;
+        grid-template-rows: 7% repeat(5, 16.6%);
+    }
+
+    .keyboard-section .row:first-child .key span {
+        padding: 5% 10%;
+    }
+
+    .keyboard-section:nth-of-type(1) {
+        .row.function-row {
+            display: grid;
+            grid-template-columns: unquote($grid-template-columns);
+            align-items: initial;
+
+            .key {
+                height: initial;
+            }
+        }
+
+        .row {
+            //aspect-ratio: 18/1;
+            gap: $section1-width-gap;
+        }
+
+        .regular {
+            width: $section1-width-regular;
+        }
+
+        .ordinal {
+            width: $section1-width-ordinal;
+        }
+
+        .backspace {
+            width: $section1-width-backspace;
+        }
+
+        .tab {
+            width: $section1-width-tab;
+        }
+
+        .upper-return {
+            width: $section1-width-upper-return;
+            border-radius: 2px 2px 0 2px;
+        }
+
+
+
+        .upper-return::after {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto auto;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%, 28% 47%, 0 47%);
+            z-index: 1;
+            visibility: initial;
+            width: 100%;
+            height: 210%;
+
+            z-index: 1;
+
+            background-image: url('#{$return-icon}');
+            // background-color: #222;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: 65% 125%;
+
+            display: inline-block;
+        }
+
+        .lower-return {
+            width: $section1-width-lower-return;
+        }
+
+        .bloq-mayus {
+            width: $section1-width-bloq-mayus;
+        }
+
+        .left-shift,
+        .left-control {
+            width: $section1-width-left-control;
+        }
+
+        .right-shift {
+            width: $section1-width-right-shift;
+        }
+
+        .spacebar {
+            width: $section1-width-spacebar;
+        }
+
+        .right-control {
+            width: $section1-width-right-control;
+        }
+    }
+
+    .keyboard-section:nth-of-type(2) {
+
+        .row {
+            gap: $section2-width-gap;
+        }
+
+        .regular {
+            width: $section2-width-regular;
+        }
+    }
+
+    .keyboard-section:nth-of-type(3) {
+
+        .row {
+            gap: percentage($section3-width-gap);
+        }
+
+        .regular {
+            width: percentage($section3-width-regular);
+        }
+
+        .numpad-zero {
+            width: percentage($section3-width-numpad-zero);
+        }
+
+        .double-height::after {
+            content: attr(data-content);
+            background-color: #222;
+            height: 211%;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            box-shadow: inset 6px 6px 30px 0 #292929, inset 0 2px 2px 0 #5e5e5e, 1px 1px 3px 0 black;
+            display: flex;
+            align-items: center;
+            padding-left: 10%;
+        }
+    }
+
+    .homing-bump::after {
+        content: "";
+        box-shadow: inset 6px 6px 30px 0 #292929, inset 0 2px 2px 0 #5e5e5e, 0px 0px 2px 0 black;
+        width: 25%;
+        height: 2px;
+        position: absolute;
+        bottom: 12%;
+    }
+
+
+
+
+    /*.function {
+        width: calc(91% / 16);
+        height: 70%;
+    }*/
+
+
+    .row.function {
+        aspect-ratio: 28/1;
+    }
+
+    .arrows {
+        width: 7.6%;
+        display: grid;
+        height: 100%;
+    }
+
+    .arrows>.key:nth-child(1) {
+        box-shadow: 1px 1px 1px 0px #111, inset 0 -2px 6px 0px var(--shadow-color);
+    }
+
+    .arrows>.key:nth-child(2) {
+        box-shadow: 1px 1px 1px 0px #111, inset 0 2px 6px 0px var(--shadow-color);
+    }
+
+    .upper-return::after,
+    .key {
+        height: 100%;
+        background-color: #222;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: clamp(10px, 85%, 16px);
+        border-radius: 2px;
+        box-shadow:
+            inset -2px -2px 6px 0px $shadow-color,
+            inset 6px 6px 30px 0 #292929,
+            inset 0 2px 2px 0 #5e5e5e;
+        color: $main-color;
+        user-select: none;
+        position: relative;
+        filter: drop-shadow(1px 1px 3px black) drop-shadow(1px 1px 1px #111);
+    }
+
+    .hidden {
+        visibility: hidden;
+    }
+
+    .darker {
+        fill: #1b1b1b;
+    }
+
+
+
+}

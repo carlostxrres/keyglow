@@ -1,0 +1,42 @@
+:root {
+    --transition: .3s ease-in-out;
+}
+
+.dropdown {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.dropdown {
+    padding: .5rem 1rem;
+    max-width: 18rem;
+}
+
+.dropdown-title {
+    cursor: pointer;
+    display: flex;
+    gap: .5rem;
+    user-select: none;
+}
+
+.dropdown-content {
+    font-weight: normal;
+    transition:
+        max-height var(--transition),
+        opacity var(--transition);
+    max-height: 100vh;
+}
+
+.dropdown>.dropdown-title svg {
+    transition: transform var(--transition);
+}
+
+/*  */
+.dropdown.inactive>.dropdown-content {
+    opacity: 0;
+    max-height: 0;
+}
+
+.dropdown.active>.dropdown-title svg {
+    transform: rotate(180deg);
+}

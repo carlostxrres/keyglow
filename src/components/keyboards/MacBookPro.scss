@@ -1,0 +1,220 @@
+.keyboard.macbook-pro {
+    $big-size: 1.1rem;
+    $regul-size: 1rem;
+    $small-size: 0.9rem;
+    $radius: 10px;
+
+    display: grid;
+    grid-template-rows: 10% repeat(5, 16%);
+    grid-gap: 2%;
+    width: 80vw;
+    aspect-ratio: 34/13;
+    padding: 1%;
+    background-color: #97989c;
+    border-radius: $radius;
+    font-size: $regul-size;
+    font-weight: 400;
+    max-width: 1000px;
+    margin: auto;
+    border: 1px solid #565656;
+    box-shadow: inset 0 10px 8px -5px #d5d5d5, inset 0 -2px 6px 2px #3c3c3c;
+
+
+    .row {
+        display: flex;
+        gap: 0.7%;
+        position: relative;
+    }
+
+    .key,
+    .hiReturn::after {
+        background-color: #1b1c20;
+        height: 100%;
+        border-radius: 5px;
+        box-shadow:
+            inset 0 40px 40px -20px #45464a,
+            0 0 0 1px rgb(10, 10, 10),
+            2px 2px 1px 0 black;
+        color: #ccc;
+        user-select: none;
+        transition: transform .1s;
+
+        &:active {
+            transform: scale(.95);
+            background-color: blue;
+            // TO DO: not working for some reason
+        }
+    }
+
+    .regular,
+    .hiReturn {
+        width: 6.3%;
+    }
+
+    .loReturn {
+        width: 4.2%;
+    }
+
+    .superbar {
+        width: 87.9%;
+    }
+
+    .fingerprint {
+        width: 4.4%;
+    }
+
+    .backspace,
+    .tab {
+        width: 9%;
+    }
+
+    .mayus {
+        width: 11.1%;
+    }
+
+    .lShift,
+    .command {
+        width: 7.9%;
+    }
+
+    .rShift {
+        width: 14.4%;
+    }
+
+    .spacebar {
+        width: 34.3%;
+    }
+
+    .arrowArea {
+        width: 19.8%;
+    }
+
+    // Texts
+    .text {
+        font-size: $small-size;
+    }
+
+    .key>span {
+        margin: 0 7px;
+    }
+
+    // Arrows Area
+    .arrowArea {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        height: 100%;
+        grid-gap: 4%;
+
+        >.key {
+            width: 100%;
+            height: 100%;
+
+            &:nth-child(1) {
+                grid-area: 1 / 2 / 2 / 3;
+                border-radius: $radius $radius 0 0;
+            }
+
+            &:nth-child(2) {
+                grid-area: 2 / 1 / 3 / 2;
+            }
+
+            &:nth-child(3) {
+                grid-area: 2 / 2 / 3 / 3;
+                border-radius: 0 0 $radius $radius;
+            }
+
+            &:nth-child(4) {
+                grid-area: 2 / 3 / 3 / 4;
+            }
+        }
+    }
+
+    // Return
+    .hiReturn,
+    .loReturn {
+        visibility: hidden;
+        position: relative;
+    }
+
+    .hiReturn::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto auto;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%, 35% 47%, 0 47%);
+        visibility: initial;
+        width: 100%;
+        height: 210%;
+        z-index: 1;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" viewBox="0 -1000 2500 2500"> <path d="M359-240 120-479l239-239 43 43-167 167h545v-172h60v231H236l166 166-43 43Z" fill="rgb(230, 230, 230)"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: 65% 125%;
+        display: inline-block;
+    }
+
+    // Two-storey keys
+    .two-storeys {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .two-storeys>*:nth-child(1) {
+        grid-area: 1 / 2 / 2 / 3;
+        align-self: end;
+        font-size: $small-size;
+    }
+
+    .two-storeys>*:nth-child(2) {
+        grid-area: 2 / 2 / 3 / 3;
+        align-self: start;
+        font-size: $big-size;
+    }
+
+    .two-storeys>*:nth-child(3) {
+        grid-area: 2 / 3 / 3 / 4;
+        align-self: start;
+        font-size: $small-size;
+    }
+
+    .two-storeys>* {
+        &.bigger {
+            font-size: $big-size;
+        }
+
+        &.lower {
+            justify-self: start;
+            margin-top: 15%;
+        }
+    }
+
+    // ...
+    .content-in-corners {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .content-in-corners>*:nth-child(1) {
+        grid-area: 1 / 1 / 2 / 3;
+    }
+
+    .content-in-corners>*:nth-child(2) {
+        grid-area: 2 / 1 / 3 / 3;
+    }
+
+    .content-in-corners>* {
+        &.left {
+            justify-self: start;
+        }
+
+        &.center {
+            justify-self: center;
+        }
+
+        &.right {
+            justify-self: end;
+        }
+    }
+}

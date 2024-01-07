@@ -1,0 +1,78 @@
+$title-btn-transition: all 0.2s cubic-bezier(0.2, 1, 0.2, 1);
+
+.buttons>button {
+    backface-visibility: hidden;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 0.25rem;
+    //display: inline-block;
+    //font-weight: 400;
+    //text-align: left;
+    transform-style: preserve-3d;
+    transition: $title-btn-transition;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    box-shadow: 0 5px #d9d9d9, 2px 2.5px 4px #adb5bd, 0 -1px 2.5px #adb5bd;
+    background-color: #fff;
+    border-color: #e6e6e6;
+    color: #192d39;
+    cursor: pointer;
+
+    &::after {
+        border-style: solid;
+        box-sizing: content-box;
+        content: "";
+        display: block;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: $title-btn-transition;
+        border-radius: 0.5rem;
+        border-width: 0.1rem;
+        bottom: -10px;
+        left: -0.3rem;
+        right: -0.3rem;
+        top: 0px;
+        transform: translate3d(0, 0, -5px);
+        border-color: #cccccc;
+    }
+
+    &:is(:hover, :focus),
+    &.active {
+        transform: translate3d(0, 1px, 5px);
+        background-color: orange; //#e6e6e6;
+        color: white;
+        outline: none;
+
+        &::after {
+            transform: translate3d(0, -1px, -5px);
+        }
+    }
+
+    &:active {
+        border-color: transparent;
+        box-shadow: none;
+        transform: translate3d(0, 5px, 0);
+        background-color: #e6e6e6;
+        box-shadow: 0 0 1px 1px #b3b3b3;
+
+        &::after {
+            transform: translate3d(0, -5px, 0);
+        }
+    }
+
+    &.main {
+        aspect-ratio: 1;
+        border-radius: 100px;
+        transform: perspective(300px) rotateX(25deg);
+        max-width: 50px;
+
+        &::after {
+            border-radius: 100px;
+        }
+
+        &:active {
+            transform: perspective(300px) rotateX(25deg) translate3d(0, 5px, 0);
+        }
+    }
+}
